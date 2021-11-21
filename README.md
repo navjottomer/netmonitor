@@ -1,6 +1,6 @@
 # NetMonitor Chrome Extension
 ## About
-This extension is a Chrome extension that allows you to monitor your internet availability and bandwidth.
+This is a Chrome extension that allows you to monitor your internet availability and bandwidth.
 ## Features
 * **Monitor your internet connection**
 * **Monitor your bandwidth**
