@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Net Monitor</title>
+</head>
+<body style="min-width: 160px";>
+  <style>
+    li {
+      list-style-type: none;
+      padding: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      background-color: #e2e2e2;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+  <h4>Net Monitor</h4>
+  <li id="lastCheck"></li>
+  <li id="lastSpeed"></li>
+  <li id="testUrl"></li>
+  <button id="retry">Recheck</button>
+  <p id="retryMessage"></p>
+  <script src="popup.js"></script>
+</body>
+</html>
