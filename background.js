@@ -1,11 +1,11 @@
-// create alarm for watchdog and fresh on installed/updated, and start fetch data
+// create alarm for watchdog check on install
 chrome.runtime.onInstalled.addListener(() => {
   console.log('onInstalled....');
   checkNetworkSpeed();
   scheduleWatchdog();
 });
 
-// fetch and save data when chrome restarted, alarm will continue running when chrome is restarted
+// Check watchdog and reschedule if needed
 chrome.runtime.onStartup.addListener(() => {
   console.log('onStartup....');
   checkNetworkSpeed();
@@ -89,12 +89,10 @@ async function checkResponseTime(testURL) {
   const response = fetch(testURL).then(response => response.blob()).then(blob => {
     // get the size of the file
     const fileSize = blob.size;
-    console.log('File size: ' + fileSize);
     // get the time it takes to download the file
     const time2 = performance.now();
     // download time in seconds
     const downloadTime = (time2 - time1) / 1000;
-    console.log('Download time: ' + downloadTime);
     // file size in megabits  
     const fileSizeMb = (fileSize / 1000000) * 8;
     // calculate download speed in Mbps
@@ -116,31 +114,19 @@ async function checkNetworkSpeed() {
     checkResponseTime(testURL)
       .then(response => {
         if (response > 200) {
-          chrome.storage.sync.set({ 'lastNetworkSpeed': response }, function () {
-            console.log('lastNetworkSpeed saved ' + response);
-          });
+          chrome.storage.sync.set({ 'lastNetworkSpeed': response });
           // set network test date
-          chrome.storage.sync.set({ 'lastNetworkTest': date }, function () {
-            console.log('lastNetworkTest saved ' + date);
-          });
+          chrome.storage.sync.set({ 'lastNetworkTest': date });
           // set test url
-          chrome.storage.sync.set({ 'lastNetworkTestURL': testURL }, function () {
-            console.log('lastNetworkTestURL saved ' + testURL);
-          });
+          chrome.storage.sync.set({ 'lastNetworkTestURL': testURL });
           changeIcon('green');
           return "success";
         } else {
-          chrome.storage.sync.set({ 'lastNetworkSpeed': response }, function () {
-            console.log('lastNetworkSpeed saved ' + response);
-          });
+          chrome.storage.sync.set({ 'lastNetworkSpeed': response });
           // set network test date
-          chrome.storage.sync.set({ 'lastNetworkTest': date }, function () {
-            console.log('lastNetworkTest saved ' + date);
-          });
+          chrome.storage.sync.set({ 'lastNetworkTest': date });
           // set test url
-          chrome.storage.sync.set({ 'lastNetworkTestURL': testURL }, function () {
-            console.log('lastNetworkTestURL saved ' + testURL);
-          });
+          chrome.storage.sync.set({ 'lastNetworkTestURL': testURL });
           changeIcon('yellow');
           return "success";
         }
@@ -151,13 +137,9 @@ async function checkNetworkSpeed() {
           console.log('Network error');
         });
         // set network test date
-        chrome.storage.sync.set({ 'lastNetworkTest': date }, function () {
-          console.log('lastNetworkTest saved ' + date);
-        });
+        chrome.storage.sync.set({ 'lastNetworkTest': date });
         // set test url
-        chrome.storage.sync.set({ 'lastNetworkTestURL': testURL }, function () {
-          console.log('lastNetworkTestURL saved ' + testURL);
-        });
+        chrome.storage.sync.set({ 'lastNetworkTestURL': testURL });
         changeIcon('red');
         return "error";
       });
