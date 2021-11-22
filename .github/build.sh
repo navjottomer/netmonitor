@@ -1,7 +1,7 @@
 #!/bin/bash
 #------------------------------------------------------------------------------
-# Automatically build a zip file with version string from manifest.json
-#------------------------------------------------------------------------------
+## Automatically build a zip file with version string from manifest.json
+##
 # change to root of project
 cd "$(dirname "$0")/.."
 # First check if dist folder exists and if not create it
