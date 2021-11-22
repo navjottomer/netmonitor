@@ -1,6 +1,6 @@
 {
   "name": "NetMonitor",
-  "version": "1.1",
+  "version": "1.1.1",
   "description": "NetMonitor it run periodically and check your bandwidth is higher than 200 mbps or not",
   "author": "Navjot Tomer",
   "icons": {

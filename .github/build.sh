@@ -17,7 +17,7 @@ if [ -f "dist/netmonitor-v$version.zip" ]; then
   rm "dist/netmonitor-v$version.zip"
 fi
 # create a zip file with the version name excluding github folder
-zip -r dist/netmonitor-v$version.zip . -x "*dist*" "*.git*" "*.github*" "*.idea*" "*.iml*" "*.md" "*.gitignore"
+zip -r dist/netmonitor-v$version.zip . -x "*dist*" "*.git*" "*.github" "*.idea*" "*.iml*" "*.md" "*.gitignore"
 echo "Zip file created."
 #------------------------------------------------------------------------------
-# EOF
+# EOF- name: Push to GitHub
