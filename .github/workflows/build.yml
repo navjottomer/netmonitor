@@ -1,7 +1,5 @@
 # Build workflow for GitHub Actions
 # Run build script on tag push on master branch
-
-
 on:
   push:
     branches:
@@ -13,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-      # run build.sh in github/build.sh
-      - run: bash -c "cd github && ./build.sh"
+        # run build.sh in github/build.sh
+        run: bash -c "cd github && ./build.sh"
       - name: Create tag
-      # create tag from version string in manifest.json
-      - run: bash -c "cd github && git tag -a v$(jq -r '.version' manifest.json) -m 'Release v$(jq -r '.version' manifest.json)' && git push origin v$(jq -r '.version' manifest.json) && git push --tags"
+        # create tag from version string in manifest.json
+        run: bash -c "cd github && git tag -a v$(jq -r '.version' manifest.json) -m 'Release v$(jq -r '.version' manifest.json)' && git push origin v$(jq -r '.version' manifest.json) && git push --tags"
       # push to github dist/netmonitor-<version>.zip
       - uses: "marvinpinto/action-automatic-releases@latest"
       - name: Push to GitHub
