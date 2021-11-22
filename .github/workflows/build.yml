@@ -24,6 +24,6 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           draft: true
-          title: "Development Build"
+          title: "Netmonitor Latest"
           files: |
             dist/netmonitor-v*.zip
