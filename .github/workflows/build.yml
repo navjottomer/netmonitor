@@ -9,8 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Build
+      - uses: actions/checkout@v2
+      - name: run build script
         # run build.sh in github/build.sh
         run: bash -c "cd github && ./build.sh"
       - name: Create tag
@@ -18,7 +19,6 @@ jobs:
         run: bash -c "cd github && git tag -a v$(jq -r '.version' manifest.json) -m 'Release v$(jq -r '.version' manifest.json)' && git push origin v$(jq -r '.version' manifest.json) && git push --tags"
       # push to github dist/netmonitor-<version>.zip
       - uses: "marvinpinto/action-automatic-releases@latest"
-      - name: Push to GitHub
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
