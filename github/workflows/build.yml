@@ -1,0 +1,37 @@
+# Build workflow for GitHub Actions
+# Run build script on tag push on master branch
+
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+      # run build.sh in github/build.sh
+      - run: bash -c "cd github && ./build.sh"
+      - name: Create tag
+      # create tag from version string in manifest.json
+      - run: bash -c "cd github && git tag -a v$(jq -r '.version' manifest.json) -m 'Release v$(jq -r '.version' manifest.json)' && git push origin v$(jq -r '.version' manifest.json) && git push --tags"
+      # push to github dist/netmonitor-<version>.zip
+      - name: Push to GitHub
+      - uses: actions/github-create-release@v2
+      - with:
+          owner: navjottomer
+          repo: netmonitor
+          tag_name: "${{ github.ref }}"
+          name: "${{ github.ref }}"
+          body: "Release of version ${{ github.ref }}"
+          draft: true
+          prerelease: false
+          target_commitish: master
+          assets:
+            - path: dist/netmonitor-v{{ github.ref }}.zip
+              name: netmonitor-v{{ github.ref }}.zip
+              content: "${{ secrets.GITHUB_TOKEN }}"@github/dist/netmonitor-v{{ github.ref }}.zip
+              content_type: application/zip
