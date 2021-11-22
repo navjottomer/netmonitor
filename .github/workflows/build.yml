@@ -22,8 +22,8 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
-          prerelease: false
-          draft: true
-          title: "Netmonitor Latest"
+          prerelease: true
+          draft: false
+          title: "Netmonitor Latest Dev build"
           files: |
             dist/netmonitor-v*.zip
