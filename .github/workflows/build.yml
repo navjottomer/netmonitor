@@ -17,7 +17,7 @@ jobs:
         shell: bash
       - name: Create tag
         # create tag from version string in manifest.json
-        run: bash -c "cd github && git tag -a v$(jq -r '.version' manifest.json) -m 'Release v$(jq -r '.version' manifest.json)' && git push origin v$(jq -r '.version' manifest.json) && git push --tags"
+        run: bash -c "cd .github && git tag -a v$(jq -r '.version' manifest.json) -m 'Release v$(jq -r '.version' manifest.json)' && git push origin v$(jq -r '.version' manifest.json) && git push --tags"
       # push to github dist/netmonitor-<version>.zip
       - name: Push release
         uses: "marvinpinto/action-automatic-releases@latest"
