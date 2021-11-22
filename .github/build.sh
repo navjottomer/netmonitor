@@ -4,10 +4,11 @@
 ##
 # change to root of project
 cd "$(dirname "$0")/.."
-# First check if dist folder exists and if not create it
-if [ ! -d "dist" ]; then
-  mkdir dist
+# First check if dist folder exists, empty it if it does and create it if it doesn't
+if [ -d dist ]; then
+  rm -rf dist
 fi
+mkdir dist
 # build a zip file with version name from manifest.json
 echo "Building zip file..."
 # read the version from manifest.json

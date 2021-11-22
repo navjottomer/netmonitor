@@ -12,6 +12,7 @@ jobs:
       - name: Build
         uses: actions/checkout@v2
       - name: run build script
+      # save version name from manifest.json to github variable
         # run build.sh in .github/build.sh
         run: sh .github/build.sh
         shell: bash
@@ -25,4 +26,4 @@ jobs:
           draft: true
           title: "Development Build"
           files: |
-            dist/netmonitor-v$(jq -r '.version' manifest.json).zip
+            dist/netmonitor-v*.zip
